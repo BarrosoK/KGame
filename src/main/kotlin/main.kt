@@ -1,20 +1,36 @@
+import instances.Accounts
+import instances.DbHandler
 import instances.chatroom.Rooms
 import instances.items.Items
+import network.server.CreateAccount
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
 import java.net.ServerSocket
 import kotlin.concurrent.thread
 
 fun init() {
     Items.init()
     Rooms.init()
+    DbHandler.init()
+
 }
 
 fun main(args : Array<String>) {
 
     init()
 
+    transaction {
+        println("There is ${Accounts.selectAll().count()} accounts")
+        for (account in Accounts.selectAll()) {
+            println(account[Accounts.username])
+        }
+    }
+
+    CreateAccount().createAccount()
+
     val server = ServerSocket(4242)
     println("Server is running on port ${server.localPort}")
-
 
     while (true) {
         val client = server.accept()

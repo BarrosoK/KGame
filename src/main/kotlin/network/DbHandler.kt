@@ -3,26 +3,28 @@ package instances
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils.create
-import org.jetbrains.exposed.sql.SchemaUtils.drop
 
-object account : Table() {
+object Accounts : Table() {
+
     val id = integer("id").autoIncrement().primaryKey() // Column<Int>
-    val username = varchar("username", 50) // Column<String>
+    val username = varchar("username", 255) // Column<String>
+    var password = varchar("password", 255)  // Column<String>
 }
 
 object DbHandler {
 
-    init {
-        println("yo")
-        Database.connect("jdbc:h2:mem:test", driver = "org.h2.Driver")
+    private const val url  = "jdbc:mysql://root:root@localhost:3306/game?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
+    private const val driver = "com.mysql.cj.jdbc.Driver"
 
-        transaction {
-            create(account)
-
-            account.insert {
-                it[username] = "Joseph"
-            }
-        }
+    fun init() {
+        Database.connect(url, driver)
+        println("Server connected to the database")
     }
+
+    fun test() {
+
+    }
+
+
 }
 
