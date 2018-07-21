@@ -4,7 +4,7 @@ import instances.character.Player
 import instances.chatroom.Rooms
 import network.Packet
 
-class RequestChannelList() : Packet(){
+class RequestChannelList : Packet(){
 
     override fun run(player: Player, data: String) {
         super.run(player, data)

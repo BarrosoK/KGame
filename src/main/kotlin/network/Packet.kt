@@ -2,7 +2,7 @@ package network
 
 import instances.character.Player
 
-open class Packet(){
+open class Packet {
     var data = ""
     lateinit var player: Player
 

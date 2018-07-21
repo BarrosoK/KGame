@@ -13,7 +13,7 @@ object PacketHandler {
             return
         }
 
-        val (opcode, data) = matchResult!!.destructured
+        val (opcode, data) = matchResult.destructured
 
         println(opcode + ":" + data + ":" )
 

@@ -8,8 +8,8 @@ object World {
 
 
            init {
-            println("World created");
-        }
+            println("World created")
+		   }
 
     fun broadcast(message: String) {
         clients.forEach {
@@ -26,8 +26,8 @@ object World {
 
         if (client == null) {
             println("No player found with this name")
-            return null;
-        }
+            return null
+		}
 
         return client
     }

@@ -1,8 +1,6 @@
-package instances
+package network
 
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.SchemaUtils.create
 
 object Accounts : Table() {
 

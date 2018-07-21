@@ -4,7 +4,7 @@ import instances.character.Player
 import instances.World
 import network.Packet
 
-class RequestPlayerList() : Packet(){
+class RequestPlayerList : Packet(){
 
     override fun run(player: Player, data: String) {
         super.run(player, data)

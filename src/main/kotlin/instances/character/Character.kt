@@ -68,10 +68,9 @@ open class Character(name: String, type: CharacterType, ops : Character.() -> Un
 
 
     open fun doAttack(target: Character) {
-        var player: Player = this as Player;
+        var player: Player = this as Player
 
         if (isDead) {
-            if (player.client != null)
                 player.client.writeln("You can't attack while u're dead noob")
             return
         }
@@ -86,7 +85,7 @@ open class Character(name: String, type: CharacterType, ops : Character.() -> Un
             }
             return
         }
-        lastAttack = time;
+        lastAttack = time
 
 
         println("${name} attack ${target.name}")
@@ -119,9 +118,9 @@ open class Character(name: String, type: CharacterType, ops : Character.() -> Un
             m.client.writeln("Received ${amount} damages from ${attacker.name}")
         }
 
-        health -= amount;
+        health -= amount
         if (health <= 0) {
-            health = 0;
+            health = 0
             doDie(attacker)
         }
     }
@@ -134,16 +133,16 @@ open class Character(name: String, type: CharacterType, ops : Character.() -> Un
 
     open fun doDie(killer: Character) {
         println("Killed by ${killer.name}")
-        isDead = true;
+        isDead = true
     }
 
     open fun respawn() {
-        health = maxHealth;
-        isDead = false;
+        health = maxHealth
+        isDead = false
     }
 
     open fun levelUp() {
-        level += 1;
+        level += 1
     }
 
     open fun gainExp(amount: Double) {
@@ -151,7 +150,7 @@ open class Character(name: String, type: CharacterType, ops : Character.() -> Un
             return
         }
 
-        experience += amount;
+        experience += amount
 
     }
 

@@ -8,7 +8,7 @@ import instances.Stat
 
 public class Player (var client: ClientHandler, name : String, ops : Character.() -> Unit = {}) : Character(name, CharacterType.PLAYER, ops)
 {
-    val paperDoll = ArrayList<Equipment>()
+    private val paperDoll = ArrayList<Equipment>()
 
     //get() = paperDoll[0].bonuses.filter { it.stat == Stat.ATK } . sumBy { it.amount }
 
@@ -67,17 +67,17 @@ public class Player (var client: ClientHandler, name : String, ops : Character.(
 
         if (paperDoll.isEmpty()) {
             client.writeln("No equipments")
-            return ;
+            return
         }
 
         paperDoll.forEach {
-            message += it.name + " ";
+            message += it.name + " "
         }
         client.writeln(message)
     }
 
     fun gmParser(message: String) {
-        var values = message.split(" ");
+        var values = message.split(" ")
 
         when (values[0]) {
             "give" -> {
@@ -91,8 +91,6 @@ public class Player (var client: ClientHandler, name : String, ops : Character.(
     }
 
     fun haveClient(): Boolean {
-        if (client == null)
-            return false
         return true
     }
 
