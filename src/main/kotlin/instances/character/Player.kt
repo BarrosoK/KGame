@@ -9,7 +9,7 @@ import network.Packet
 public class Player (var client: ClientHandler, name : String, ops : Character.() -> Unit = {}) : Character(name, CharacterType.PLAYER, ops)
 {
     private val paperDoll = ArrayList<Equipment>()
-
+	 var id : Int = 0
     //get() = paperDoll[0].bonuses.filter { it.stat == Stat.ATK } . sumBy { it.amount }
 
     override var health : Int = 0

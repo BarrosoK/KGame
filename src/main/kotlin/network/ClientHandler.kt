@@ -2,6 +2,7 @@ import instances.character.Player
 import instances.chatroom.Rooms
 import instances.character.Stat
 import instances.World
+import network.DbHandler
 import network.PacketHandler
 import java.io.OutputStream
 import java.net.Socket
@@ -102,6 +103,7 @@ class ClientHandler(client: Socket) {
     }
 
     private fun shutdown() {
+		DbHandler.updateCharacter(player)
         World.clients.remove(this)
         running = false
         client.close()

@@ -52,6 +52,22 @@ object 	DbHandler {
 		}
 	}
 
+	fun updateCharacter(player : Player) {
+		transaction {
+			Characters.update({Characters.id eq player.id}) {
+				it[Characters.account] = player.client.accountName
+				it[Characters.attack] = player.atk
+				it[Characters.def] = player.def
+				it[Characters.crit_chance] = player.critChance
+				it[Characters.crit_dmg] = player.critDamage
+				it[Characters.experience] = player.experience
+				it[Characters.speed]  = player.speed
+				it[Characters.hp_current] = player.health
+				it[Characters.hp_max] = player.maxHealth
+			}
+		}
+	}
+
 	fun listCharacters() {
 
 	}

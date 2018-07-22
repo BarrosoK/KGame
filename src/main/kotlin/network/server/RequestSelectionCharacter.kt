@@ -26,8 +26,10 @@ class RequestSelectionCharacter : Packet() {
 				player.baseAdd(Stat.HP, p[0][Characters.hp_max])
 				player.name = p[0][Characters.name]
 				player.experience = p[0][Characters.experience]
+				player.id = p[0][Characters.id]
 				player.bonuses.forEach { player.client.writeln("stat ${it.stat} amount : ${it.amount}") }
 				player.client.writeln("Character loaded")
+				player.client.gameState = GameState.PLAYING
 			} else {
 				player.client.writeln("Wrong id")
 			}
