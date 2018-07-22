@@ -1,5 +1,7 @@
 package network
 
+import instances.character.Character
+import instances.character.Player
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.beans.Encoder
@@ -12,11 +14,51 @@ object Accounts : Table() {
 	var password = varchar("password", 255)  // Column<String>
 }
 
+object Characters : Table() {
+	val account = varchar("account", 255)
+	val id = integer("id").autoIncrement().primaryKey()
+	val name = varchar("name", 255)
+	val attack = integer("attack")
+	val matk = integer("matk")
+	val def = integer("def")
+	val speed = integer("speed")
+	val crit_chance = integer("crit_chance")
+	val crit_dmg = integer("crit_dmg")
+	val hp_current = integer("hp_current")
+	val hp_max = integer("hp_max")
+	val experience = integer("experience")
+}
+
 object 	DbHandler {
 
 	private const val url = "jdbc:mysql://root:root@localhost:3306/game?autoReconnect=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
 	private const val driver = "com.mysql.cj.jdbc.Driver"
 	private val connect = Database.connect(url, driver)
+
+	fun createCharacter(player : Player) {
+		transaction {
+			Characters.insert {
+				it[Characters.name] = player.name
+				it[Characters.account] = player.client.accountName
+				it[Characters.attack] = player.atk
+				it[Characters.def] = player.def
+				it[Characters.crit_chance] = player.critChance
+				it[Characters.crit_dmg] = player.critDamage
+				it[Characters.experience] = player.experience
+				it[Characters.speed]  = player.speed
+				it[Characters.hp_current] = player.health
+				it[Characters.hp_max] = player.maxHealth
+			}
+		}
+	}
+
+	fun listCharacters() {
+
+	}
+
+	fun loadCharacter(id : Int) {
+
+	}
 
 	fun createAccount(username: String, password: String) {
 

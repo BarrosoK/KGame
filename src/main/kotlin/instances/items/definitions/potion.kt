@@ -2,7 +2,7 @@ package instances.items.definitions
 
 import enums.PotionType
 import instances.items.Items
-import instances.Stat
+import instances.character.Stat
 
 fun Items.loadPotions() {
 

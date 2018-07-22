@@ -2,6 +2,7 @@ import network.Accounts
 import network.DbHandler
 import instances.chatroom.Rooms
 import instances.items.Items
+import network.LoginHandler
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -21,12 +22,6 @@ fun main(args : Array<String>) {
 
     val server = ServerSocket(4242)
     println("Server is running on port ${server.localPort}")
-
-	transaction {
-		Accounts.select(where = Accounts.username.eq("Joseph")).forEach {
-			println(it[Accounts.password])
-		}
-	}
 
     while (true) {
         val client = server.accept()

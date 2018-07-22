@@ -1,7 +1,7 @@
 package instances.items.definitions
 
 import instances.items.Items
-import instances.Stat
+import instances.character.Stat
 
 fun Items.loadSwords() {
 

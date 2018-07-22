@@ -1,4 +1,4 @@
-package instances
+package instances.character
 
 enum class Stat {
         HP,

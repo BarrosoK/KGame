@@ -4,9 +4,7 @@ import enums.EquipmentType
 import ClientHandler
 import instances.items.Equipment
 import instances.items.Items
-import instances.Stat
 import network.Packet
-import java.nio.charset.Charset
 
 public class Player (var client: ClientHandler, name : String, ops : Character.() -> Unit = {}) : Character(name, CharacterType.PLAYER, ops)
 {
@@ -18,6 +16,8 @@ public class Player (var client: ClientHandler, name : String, ops : Character.(
     override val maxHealth
         get() = super.maxHealth + paperDoll.flatMap { it.bonuses } .filter { it.stat == Stat.HP } .sumBy { it.amount }
 
+    override val speed : Int
+        get() = super.speed + paperDoll.flatMap { it.bonuses }.filter { it.stat == Stat.SPEED }.sumBy { it.amount }
     override val atk : Int
         get() = super.atk + paperDoll.flatMap { it.bonuses }.filter { it.stat == Stat.ATK }.sumBy { it.amount }
     override val def : Int
@@ -64,6 +64,10 @@ public class Player (var client: ClientHandler, name : String, ops : Character.(
         client.writeln(equipment.name + " equipped")
     }
 
+	fun loadCharacter(player : Player) {
+
+	}
+
     fun requestEquipment() {
         var message =  ""
 
@@ -93,7 +97,6 @@ public class Player (var client: ClientHandler, name : String, ops : Character.(
     }
 
 	fun sendPacket(packet : Packet) {
-		client.writeBits(packet.data)
 	}
 
     fun haveClient(): Boolean {
@@ -104,7 +107,7 @@ public class Player (var client: ClientHandler, name : String, ops : Character.(
         super.respawn()
     }
 
-    override fun gainExp(amount: Double) {
+    override fun gainExp(amount: Int) {
         super.gainExp(amount)
     }
 

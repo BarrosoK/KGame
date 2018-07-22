@@ -1,21 +1,29 @@
 import instances.character.Player
 import instances.chatroom.Rooms
-import instances.Stat
+import instances.character.Stat
 import instances.World
 import network.PacketHandler
 import java.io.OutputStream
 import java.net.Socket
 import java.nio.charset.Charset
 import java.util.*
+import kotlin.math.log
 
-
+enum class GameState {
+	LOGGING,
+	LOBBY,
+	PLAYING
+}
 
 class ClientHandler(client: Socket) {
+	lateinit var  accountName : String
     private val client: Socket = client
     private val reader: Scanner = Scanner(client.getInputStream())
     private val writer: OutputStream = client.getOutputStream()
     private var running: Boolean = false
     lateinit var player: Player
+    private var logged = false
+	var gameState  : GameState = GameState.LOGGING
 
     init {
         World.clients.add(this)
@@ -26,23 +34,13 @@ class ClientHandler(client: Socket) {
         // Welcome message
         write("Welcome to the server!\n" +
                 "To Exit, write: 'EXIT'.\n" +
-                "What's your pseudo : \n")
-
+                "To Login : 1 username::pass\n")
+        /*
         val pseudo = reader.nextLine()
-        player = Player(this, pseudo.split(' ')[0]) {
-            baseAdd(Stat.ATK, 4)
-            baseAdd(Stat.MATK, 5)
-            baseAdd(Stat.DEF, 5)
-            baseAdd(Stat.SPEED, 20)
-            baseAdd(Stat.CRIT_CHC, 10)
-            baseAdd(Stat.CRIT_DMG, 25)
-            baseAdd(Stat.HP, 100)
-            setLvl(3)
+
+        */
+        player = Player(this, "Anon".split(' ')[0]) {
         }
-
-
-        writeln("Welcome " + player.name)
-        sendToOther(player.name + " logged !")
 
         loop@ while (running) {
             try {

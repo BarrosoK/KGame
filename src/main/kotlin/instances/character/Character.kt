@@ -1,8 +1,6 @@
 package instances.character
 
-import instances.Bonus
 import instances.items.Item
-import instances.Stat
 import java.util.*
 
 enum class CharacterType {
@@ -18,8 +16,8 @@ class Position {
 
 open class Character(name: String, type: CharacterType, ops : Character.() -> Unit = {}) {
     var level: Int = 0
-    var experience: Double = 0.0
-    val name: String
+    var experience = 0
+    var name: String
     val type: CharacterType
     var isDead: Boolean = false
     val bonuses = ArrayList<Bonus>()
@@ -34,7 +32,7 @@ open class Character(name: String, type: CharacterType, ops : Character.() -> Un
         this.type = type
         this.ops()
         health = bonuses.filter { it.stat == Stat.HP }. sumBy { it.amount }
-        println(name)
+        println("Welcome : $name")
         bonuses.forEach { println("stat ${it.stat} amount : ${it.amount}") }
     }
 
@@ -57,6 +55,8 @@ open class Character(name: String, type: CharacterType, ops : Character.() -> Un
 
     open val maxHealth
         get() = bonuses.filter { it.stat == Stat.HP } . sumBy { it.amount }
+    open val speed
+        get() = bonuses.filter { it.stat == Stat.SPEED } . sumBy { it.amount }
     open val atk
         get() = bonuses.filter { it.stat == Stat.ATK } . sumBy { it.amount }
     open val def
@@ -145,7 +145,7 @@ open class Character(name: String, type: CharacterType, ops : Character.() -> Un
         level += 1
     }
 
-    open fun gainExp(amount: Double) {
+    open fun gainExp(amount: Int) {
         if (amount < 0) {
             return
         }

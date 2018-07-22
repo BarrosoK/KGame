@@ -13,7 +13,7 @@ class Monster (name: String, ops : Character.() -> Unit = {}) : Character(name, 
     }
 
     override fun doDie(killer: Character) {
-        killer.gainExp(1.0)
+        killer.gainExp(1)
         drop.forEach {
             println(it.name)
         }
