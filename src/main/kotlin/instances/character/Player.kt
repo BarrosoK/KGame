@@ -5,6 +5,8 @@ import ClientHandler
 import instances.items.Equipment
 import instances.items.Items
 import instances.Stat
+import network.Packet
+import java.nio.charset.Charset
 
 public class Player (var client: ClientHandler, name : String, ops : Character.() -> Unit = {}) : Character(name, CharacterType.PLAYER, ops)
 {
@@ -89,6 +91,10 @@ public class Player (var client: ClientHandler, name : String, ops : Character.(
             }
         }
     }
+
+	fun sendPacket(packet : Packet) {
+		client.writeBits(packet.data)
+	}
 
     fun haveClient(): Boolean {
         return true

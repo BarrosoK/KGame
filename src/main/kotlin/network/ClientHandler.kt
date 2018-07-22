@@ -26,7 +26,7 @@ class ClientHandler(client: Socket) {
         // Welcome message
         write("Welcome to the server!\n" +
                 "To Exit, write: 'EXIT'.\n" +
-                "What's your pseudo : ")
+                "What's your pseudo : \n")
 
         val pseudo = reader.nextLine()
         player = Player(this, pseudo.split(' ')[0]) {
@@ -77,6 +77,10 @@ class ClientHandler(client: Socket) {
 
     private fun invalidCommand() {
         writeln("Invalid command")
+    }
+
+    fun writeBits(data: ByteArray) {
+        writer.write(data)
     }
 
     fun write(message: String) {

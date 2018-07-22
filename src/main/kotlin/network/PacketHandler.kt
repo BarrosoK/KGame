@@ -14,7 +14,6 @@ object PacketHandler {
         }
 
         val (opcode, data) = matchResult.destructured
-
         println(opcode + ":" + data + ":" )
 
         Packets.values().find { it.value == opcode.toInt() }.apply { if (this != null) this.packet.run(player, data)
