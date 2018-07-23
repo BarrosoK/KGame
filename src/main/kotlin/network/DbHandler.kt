@@ -72,7 +72,7 @@ object 	DbHandler {
 
 	}
 
-	fun loadCharacter(id : Int) {
+	fun loadCharacter(id : Int)  {
 
 	}
 
