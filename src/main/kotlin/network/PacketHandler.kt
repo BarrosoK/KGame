@@ -22,8 +22,10 @@ object PacketHandler {
                     player.client.writeln("You have to login first")
                     return
                 }
-				if (player.client.gameState == GameState.LOBBY && opcode.toInt() != Packets.REQUEST_CHAR_LOBBY.value) {
-					player.client.writeln("You have to select a character !")
+				if (player.client.gameState == GameState.LOBBY
+                        && (opcode.toInt() != Packets.REQUEST_CHAR_LOBBY.value
+                                && opcode.toInt() != Packets.REQUEST_CHAR_CREATION.value)) {
+					player.client.writeln("You have to select a character or create a character")
 					return
 				}
                 this.packet.run(player, data)
