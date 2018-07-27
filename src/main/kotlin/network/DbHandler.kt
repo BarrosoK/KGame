@@ -14,6 +14,8 @@ object Accounts : Table() {
 	var password = varchar("password", 255)  // Column<String>
 }
 
+//c bizarre sur windows y'a pas besoinde lal maj D:
+
 object Characters : Table() {
 	val account = varchar("account", 255)
 	val id = integer("id").autoIncrement().primaryKey()

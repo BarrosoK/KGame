@@ -24,6 +24,7 @@ object PacketHandler {
                 }
 				if (player.client.gameState == GameState.LOBBY
                         && (opcode.toInt() != Packets.REQUEST_CHAR_LOBBY.value
+                                && opcode.toInt() != Packets.REQUEST_CHAR_SELECT.value
                                 && opcode.toInt() != Packets.REQUEST_CHAR_CREATION.value)) {
 					player.client.writeln("You have to select a character or create a character")
 					return

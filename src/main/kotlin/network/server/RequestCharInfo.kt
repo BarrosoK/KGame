@@ -6,8 +6,10 @@ import network.Packet
 
 class RequestCharInfo : Packet() {
 	override fun run(player: Player, data: String) {
-		player.baseAdd(Stat.ATK, 100)
-		println("bojnour")
-		player.bonuses.forEach { player.client.writeln("stat ${it.stat} amount : ${it.amount}") }
+		var msg = ""
+
+		msg += player.client.writeln("Name : ${player.name}\n")
+		player.bonuses.forEach { msg += "stat ${it.stat} amount : ${it.amount}\n" }
+		player.client.write(msg)
 	}
 }
